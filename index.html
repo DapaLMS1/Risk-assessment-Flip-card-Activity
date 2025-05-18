@@ -16,7 +16,12 @@
       width: 500px;
       height: 300px;
       perspective: 1000px;
-      margin: 60px auto 80px auto;
+      margin: 60px auto 20px auto;
+      display: none;
+    }
+
+    .flip-card.active {
+      display: block;
     }
 
     .flip-card-inner {
@@ -56,7 +61,7 @@
       color: white;
     }
 
-    .flip-button {
+    .flip-button, .next-button {
       margin-top: 10px;
       padding: 10px 20px;
       font-size: 1rem;
@@ -65,19 +70,21 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
+      display: inline-block;
     }
 
-    .flip-button:hover {
+    .flip-button:hover, .next-button:hover {
       background-color: #7ABF49;
+    }
+
+    .card-controls {
+      margin-top: 15px;
     }
   </style>
 </head>
 <body>
 
-  <div class="flip-card" id="card1">
+  <div class="flip-card active" id="card1">
     <div class="flip-card-inner">
       <div class="flip-card-front">
         Power cords from equipment are stretched across the walk path in the operatory.
@@ -87,7 +94,10 @@
         Control: Reroute cords under equipment or use cord covers to eliminate trip hazards.
       </div>
     </div>
-    <button class="flip-button" onclick="flip('card1')">Flip</button>
+    <div class="card-controls">
+      <button class="flip-button" onclick="flip('card1')">Flip</button>
+      <button class="next-button" onclick="nextCard()">Next</button>
+    </div>
   </div>
 
   <div class="flip-card" id="card2">
@@ -100,7 +110,10 @@
         Control: Dry the area thoroughly and use a wet floor sign until dry.
       </div>
     </div>
-    <button class="flip-button" onclick="flip('card2')">Flip</button>
+    <div class="card-controls">
+      <button class="flip-button" onclick="flip('card2')">Flip</button>
+      <button class="next-button" onclick="nextCard()">Next</button>
+    </div>
   </div>
 
   <div class="flip-card" id="card3">
@@ -113,7 +126,10 @@
         Control: Tag out and report equipment immediately. Do not use until repaired or replaced.
       </div>
     </div>
-    <button class="flip-button" onclick="flip('card3')">Flip</button>
+    <div class="card-controls">
+      <button class="flip-button" onclick="flip('card3')">Flip</button>
+      <button class="next-button" onclick="nextCard()">Next</button>
+    </div>
   </div>
 
   <div class="flip-card" id="card4">
@@ -126,7 +142,10 @@
         Control: Restock missing PPE before patient care begins.
       </div>
     </div>
-    <button class="flip-button" onclick="flip('card4')">Flip</button>
+    <div class="card-controls">
+      <button class="flip-button" onclick="flip('card4')">Flip</button>
+      <button class="next-button" onclick="nextCard()">Next</button>
+    </div>
   </div>
 
   <div class="flip-card" id="card5">
@@ -139,15 +158,27 @@
         Control: Remove dirty items, disinfect the area, and establish clear zones.
       </div>
     </div>
-    <button class="flip-button" onclick="flip('card5')">Flip</button>
+    <div class="card-controls">
+      <button class="flip-button" onclick="flip('card5')">Flip</button>
+      <button class="next-button" onclick="nextCard()">Start Over</button>
+    </div>
   </div>
 
   <script>
+    let currentCard = 1;
+
     function flip(id) {
       const card = document.getElementById(id);
       card.classList.toggle('flipped');
+    }
+
+    function nextCard() {
+      document.getElementById(`card${currentCard}`).classList.remove('active');
+      currentCard = currentCard === 5 ? 1 : currentCard + 1;
+      document.getElementById(`card${currentCard}`).classList.add('active');
     }
   </script>
 
 </body>
 </html>
+
